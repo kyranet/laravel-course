@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Product\Product as DomainProduct;
 use App\Domain\Product\ProductRepository;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Application\Product\CreateProductRequest;
+use App\Application\Product\CreateProduct;
 
 class ProductController extends Controller
 {
     private ProductRepository $repository;
+    private CreateProduct $createProduct;
 
-    public function __construct(ProductRepository $repository)
+    public function __construct(ProductRepository $repository, CreateProduct $createProduct)
     {
         $this->repository = $repository;
+        $this->createProduct = $createProduct;
     }
 
     /**
@@ -39,7 +42,8 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $this->repository->create(new DomainProduct($request['name'], $request['price']));
+        $request = new CreateProductRequest($request['name'], $request['price']);
+        $this->createProduct->execute($request);
         return view('products.create');
     }
 
