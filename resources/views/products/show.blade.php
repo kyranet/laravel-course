@@ -11,6 +11,13 @@
         @endforeach
     </ul>
 
+<h2>Comentarios</h2>
+<ul>
+    @foreach ($product->comments as $comment)
+    <li>{{ $comment->getContent() }}</li>
+    @endforeach
+</ul>
+
 
     <a href="{{route('products.index')}}">
         <button>Volver</button>
