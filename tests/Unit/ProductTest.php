@@ -21,13 +21,13 @@ class ProductTest extends TestCase
         /** @var ProductRepository $repository */
         $repository = $repositoryMock;
         $usecase = new CreateProductUseCase($repository);
-        $request = new CreateProductRequest('iPhone', 1000);
+        $request = new CreateProductRequest('iPhone', Null, 1000);
 
         $repositoryMock
             ->expects($this->exactly(1))
             ->method('create')
             ->with(
-                $this->equalTo(new Product('iPhone', 1000))
+                $this->equalTo(new Product('iPhone', Null, 1000))
             );
 
         $usecase->execute($request);

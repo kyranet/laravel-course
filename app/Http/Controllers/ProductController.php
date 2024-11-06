@@ -42,17 +42,17 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $request = new CreateProductRequest($request['name'], $request['price']);
+        $request = new CreateProductRequest($request['name'], $request['description'], $request['price']);
         $this->createProduct->execute($request);
         return view('products.create');
     }
-
+    
     /**
      * Display the specified resource.
      */
     public function show(Product $product)
     {
-        //
+        return view('products.show', ['product' => $product]);
     }
 
     /**

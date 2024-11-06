@@ -16,6 +16,6 @@ class CreateProductUseCase implements CreateProduct
 
     public function execute(CreateProductRequest $request): void
     {
-        $this->repository->create(new Product($request->getName(), $request->getPrice()));
+        $this->repository->create(new Product($request->getName(), $request->getDescription(), $request->getPrice()));
     }
 }
